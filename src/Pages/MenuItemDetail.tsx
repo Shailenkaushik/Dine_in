@@ -1,17 +1,31 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { useGetMenuItemByIdQuery } from '../Apis/menuItemApi'
+import { useNavigate, useParams } from 'react-router-dom';
 function MenuItemDetail() {
+  const {menuItemId}=useParams();
+  const {data,isLoading}=useGetMenuItemByIdQuery(menuItemId);
+  const [quantity,setQuantity]=useState(1);
+  const handleClick=(counter: number)=>{
+    let newQuantity=quantity+counter;
+    if(newQuantity>0) setQuantity(newQuantity);
+  }
+  const navigate=useNavigate();
   return (
     <div className="container pt-4 pt-md-5">
+    
+    {isLoading?(
+    <div className='d-flex justify-content-center' style={{width:"100%"}}>Loading...</div>
+    ):
+    (
     <div className="row">
       <div className="col-7">
-        <h2 className="text-success">NAME</h2>
+        <h2 className="text-success">{data.result.name}</h2>
         <span>
           <span
             className="badge text-bg-dark pt-2"
             style={{ height: "40px", fontSize: "20px" }}
           >
-            CATEGORY
+            {data.result.category}
           </span>
         </span>
         <span>
@@ -19,11 +33,11 @@ function MenuItemDetail() {
             className="badge text-bg-light pt-2"
             style={{ height: "40px", fontSize: "20px" }}
           >
-            SPECIAL TAG
+            {data.result.specialTag}
           </span>
         </span>
         <p style={{ fontSize: "20px" }} className="pt-2">
-          DESCRIPTION
+          {data.result.description}
         </p>
         <span className="h3">$10</span> &nbsp;&nbsp;&nbsp;
         <span
@@ -32,12 +46,12 @@ function MenuItemDetail() {
         >
           <i
             className="bi bi-dash p-1"
-            style={{ fontSize: "25px", cursor: "pointer" }}
+            style={{ fontSize: "25px", cursor: "pointer" }} onClick={()=>handleClick(-1)}
           ></i>
-          <span className="h3 mt-3 px-3">XX</span>
+          <span className="h3 mt-3 px-3">{quantity}</span>
           <i
             className="bi bi-plus p-1"
-            style={{ fontSize: "25px", cursor: "pointer" }}
+            style={{ fontSize: "25px", cursor: "pointer" }} onClick={()=>handleClick(1)}
           ></i>
         </span>
         <div className="row pt-4">
@@ -48,7 +62,7 @@ function MenuItemDetail() {
           </div>
 
           <div className="col-5 ">
-            <button className="btn btn-secondary form-control">
+            <button className="btn btn-secondary form-control" onClick={()=>navigate(-1)} >
               Back to Home
             </button>
           </div>
@@ -56,13 +70,14 @@ function MenuItemDetail() {
       </div>
       <div className="col-5">
         <img
-          src="https://via.placeholder.com/150"
+          src={data.result.image}
           width="100%"
           style={{ borderRadius: "50%" }}
           alt="No content"
         ></img>
       </div>
     </div>
+    )}
   </div>
   )
 }

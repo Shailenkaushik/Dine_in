@@ -14,7 +14,7 @@ function MenuItemCards(props: Props) {
       >
         <div className="card-body pt-2">
           <div className="row col-10 offset-1 p-4">
-            <Link to={`/MenuItemDetails/:${props.menuItem.id}`}>
+            <Link to={`/MenuItemDetails/${props.menuItem.id}`}>
             <img
               src={props.menuItem.image}
               style={{ borderRadius: "50%" }}
@@ -53,7 +53,7 @@ function MenuItemCards(props: Props) {
           ></i>
 
           <div className="text-center">
-          <Link to={`/MenuItemDetails/:${props.menuItem.id}` } style={{textDecoration:"None", color:"green"}}>
+          <Link to={`/MenuItemDetails/${props.menuItem.id}` } style={{textDecoration:"None", color:"green"}}>
             <p className="card-title m-0 text-success fs-3" >{props.menuItem.name}</p>
             </Link>
             <p className="badge bg-secondary" style={{ fontSize: "12px" }}>
