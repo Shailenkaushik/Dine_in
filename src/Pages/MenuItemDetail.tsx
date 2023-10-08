@@ -1,20 +1,33 @@
 import React, { useState } from 'react'
 import { useGetMenuItemByIdQuery } from '../Apis/menuItemApi'
-import { useNavigate, useParams } from 'react-router-dom';
+import {useNavigate, useParams } from 'react-router-dom';
+import { useUpdateShoppingCartMutation } from '../Apis/shoppingCartApi';
+import { MainLoader, MiniLoader } from './Common';
 function MenuItemDetail() {
   const {menuItemId}=useParams();
   const {data,isLoading}=useGetMenuItemByIdQuery(menuItemId);
   const [quantity,setQuantity]=useState(1);
+  const [isAddingToCart,setIsAddingToCart]=useState<boolean>(false);
+  const [updateShoppingCart]=useUpdateShoppingCartMutation();
   const handleClick=(counter: number)=>{
     let newQuantity=quantity+counter;
     if(newQuantity>0) setQuantity(newQuantity);
   }
+  
+  const handleAddToCart=async (menuItemId:number)=>{
+    setIsAddingToCart(true);
+
+    const response=await updateShoppingCart({menuItemId:menuItemId,updateQuantityBy:quantity,userId:"68b0079c-682f-4369-97aa-932be9b15c63"});
+     console.log(response);
+    setIsAddingToCart(false);
+  }
+
   const navigate=useNavigate();
   return (
     <div className="container pt-4 pt-md-5">
     
     {isLoading?(
-    <div className='d-flex justify-content-center' style={{width:"100%"}}>Loading...</div>
+    <div className='d-flex justify-content-center' style={{width:"100%"}}><MainLoader/></div>
     ):
     (
     <div className="row">
@@ -55,10 +68,12 @@ function MenuItemDetail() {
           ></i>
         </span>
         <div className="row pt-4">
+          
           <div className="col-5">
-            <button className="btn btn-success form-control">
+          {isAddingToCart?(<button disabled className="btn btn-success form-control"><MiniLoader ></MiniLoader></button>):(<div><button className="btn btn-success form-control" onClick={()=>handleAddToCart(data.result?.id)}>
               Add to Cart
-            </button>
+            </button></div>)}
+            
           </div>
 
           <div className="col-5 ">

@@ -5,6 +5,7 @@ import MenuItemCards from './MenuItemCards';
 import { useGetMenuItemsQuery } from '../../../Apis/menuItemApi';
 import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
 import { useDispatch } from 'react-redux';
+import { MainLoader } from '../../../Pages/Common';
 
 function MenuItemList() {
 
@@ -18,7 +19,7 @@ function MenuItemList() {
       }
     },[isLoading]);
    if(isLoading){
-    return <div>Loading...</div>
+    return <div><MainLoader></MainLoader></div>
    }
   return (
     <div className='container row'>
