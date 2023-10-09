@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
         <div className='p-2'>
-            Hillo;
+           
                 <MenuItemList></MenuItemList>
         </div>
       
