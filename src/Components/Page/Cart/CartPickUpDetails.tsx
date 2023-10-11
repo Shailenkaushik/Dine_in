@@ -37,7 +37,7 @@ export default function CartPickUpDetails() {
       Pickup Details
     </h1>
     <hr />
-    <form className="col-10 mx-auto" >
+    <form className="col-10 mx-auto"  >
       <div className="form-group mt-3">
         Pickup Name
         <input

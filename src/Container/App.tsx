@@ -1,7 +1,7 @@
 
 import { Route, Routes } from "react-router-dom";
 import { Footer, Header } from "../Components/Layout";
-import { Home, NotFound } from "../Pages";
+import { Home, Login, NotFound, Register } from "../Pages";
 import MenuItemDetail from "../Pages/MenuItemDetail";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -29,6 +29,8 @@ function App() {
      <Route path="/" element={<Home/>}/>
      <Route path="/MenuItemDetails/:menuItemId" element={<MenuItemDetail/>}/>
      <Route path="/shoppingcart" element={<ShoppingCart/>}/>
+     <Route path="/login" element={<Login/>}/>
+     <Route path="/register" element={<Register/>}/>
      <Route path="*" element={<NotFound/>}/>
    </Routes>
    </div>
