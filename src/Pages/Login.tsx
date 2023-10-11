@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice';
 import { useNavigate } from 'react-router-dom';
 import { MainLoader, MiniLoader } from './Common';
+import { toast } from 'react-toastify';
 
 
 export default function Login() {
@@ -15,6 +16,7 @@ export default function Login() {
   const[loading,setLoading]=useState(false);
   const dispatch=useDispatch();
   const navigate=useNavigate();
+  const notify = () => toast("Logged in successfully!!");
   const[userInput,setUserInput]=useState({
     userName: "",
     password: "",
@@ -40,6 +42,7 @@ export default function Login() {
       const {fullName,id,email,role}: userModel=jwtDecode(token);
       dispatch(setLoggedInUser({fullName,id,email,role}));
       navigate("/");
+      notify();
     }
     else if(response.error){
       console.log(response.error.data.errorMessages[0]);
@@ -84,6 +87,7 @@ export default function Login() {
           type="submit"
           className="btn btn-success"
           style={{ width: "200px" }}
+          disabled={loading}
         >
           Login
         </button>

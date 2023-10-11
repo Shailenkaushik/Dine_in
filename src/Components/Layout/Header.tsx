@@ -34,12 +34,30 @@ function Header() {
       <li className="nav-item active">
         <NavLink className="nav-link" to="/">Home <span className="sr-only"></span></NavLink>
       </li>
+
       <li className="nav-item active">
         <NavLink className="nav-link" to="/shoppingcart"> <i className="bi bi-cart3">
-         {" "} {shoppingCartFromStore?.length?`(${shoppingCartFromStore.length})`:""}
+          {userData.id && `(${shoppingCartFromStore.length})`}
+
           </i> <span className="sr-only"></span></NavLink>
       </li>
+
+      <li className="nav-item active">
+        <NavLink className="nav-link" aria-current="page" to="/AuthenticationTestAdmin"> 
+        
+          AuthenticationTestAdmin
+        </NavLink>
+      </li>
+
      
+
+      <li className="nav-item active">
+        <NavLink className="nav-link" aria-current="page" to="/authentication"> 
+        
+        AuthenticationTest
+        </NavLink>
+      </li>
+      
       <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin Panel
